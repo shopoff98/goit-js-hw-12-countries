@@ -1,10 +1,10 @@
-// import './sass/main.scss';
+import './sass/main.scss';
+import  fetchCountries  from './partials/fetchCountries';
 import '@pnotify/core/dist/BrightTheme.css';
 import '@pnotify/core/dist/PNotify.css';
 import listCountriesTempl from './templates/listCountriesTempl.hbs';
 import createCountryCard from './templates/createCountryCard.hbs';
 
-const BASE_URL = 'https://restcountries.com/v2/name';
 const { error } = require('@pnotify/core');
 const debounce = require('lodash.debounce');
 
@@ -15,13 +15,12 @@ const ulRefs = document.querySelector('.js-country-list');
 
 
 
-inputRefs.addEventListener('input', debounce(fetchCountries, 500));
+inputRefs.addEventListener('input', debounce(search, 500));
 
-function fetchCountries(e) {
+function search(e) {
         e.preventDefault();
         const nameCountry = e.target.value;
-        const url = `${BASE_URL}/${nameCountry}`;
-        fetch(url).then(response => response.json()).then(data => filterCountries(data)
+        fetchCountries(nameCountry).then(filterCountries
         )};
 
     
@@ -54,5 +53,4 @@ function filterCountries(data) {
     
     
 }
-
-
+ 
